@@ -51,7 +51,7 @@ Now let's create the SMGridView. If you like to use nib files, you can create it
 															  self.view.frame.size.width,
 															  self.frame.size.height)] autorelease];
 	self.grid.dataSource = self;
-	self.grid.delegate = self;
+	self.grid.gridDelegate = self;
 }
 
 - (void)dealloc {
@@ -77,7 +77,7 @@ All the methods in SMGridViewDelegate are optional, but SMGridDataSource require
 	// Check if we can reuse
 	UILabel *label = [gridView dequeReusableView];
 	if (!label) {
-		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)] autorelease]
+		label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)] autorelease];
 	}
 	label.text = [NSString stringWithFormat:@"%d", indexPath.row];
 	return label;
@@ -99,7 +99,7 @@ Now all we have to do is call the `reloadData` method. Just in like a UITableVie
 															  self.frame.size.height)] autorelease];
 	
 	self.grid.dataSource = self;
-	self.grid.delegate = self;
+	self.grid.gridDelegate = self;
 	
 	[self.grid reloadData];
 }
@@ -174,7 +174,7 @@ SMGridView needs to know the size of all the items to calculate how long the con
 However, if all your views have the same size, SMGridView can perform better. If this is the case, simply implement this method in the `SMGridViewDataSource`like this:
 ```objective-c
 - (BOOL)smGridViewSameSize:(SMGridView *)gridView {
-	return YES
+	return YES;
 }
 ```
 This improves performance because SMGridView will do fewer calculations.
